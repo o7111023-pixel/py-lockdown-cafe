@@ -1,5 +1,4 @@
 import datetime
-
 from app.errors import (
     NotVaccinatedError,
     OutdatedVaccineError,
@@ -20,7 +19,7 @@ class Cafe:
         expiration_date = visitor["vaccine"].get("expiration_date")
         if expiration_date is None:
             raise OutdatedVaccineError(
-                f"{visitor.get('name', 'Visitor')}'s vaccine is missing expiration date"
+                f"{visitor.get('name', 'Visitor')}'s vaccine is outdated"
             )
 
         if expiration_date < datetime.date.today():
