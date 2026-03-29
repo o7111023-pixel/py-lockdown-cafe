@@ -8,7 +8,7 @@ from app.errors import (
 
 
 class Cafe:
-    def __init__(self, name: str):
+    def __init__(self, name: str) -> None:
         self.name = name
 
     def visit_cafe(self, visitor: dict) -> str:
@@ -18,6 +18,11 @@ class Cafe:
             )
 
         expiration_date = visitor["vaccine"].get("expiration_date")
+        if expiration_date is None:
+            raise OutdatedVaccineError(
+                f"{visitor.get('name', 'Visitor')}'s vaccine is missing expiration date"
+            )
+
         if expiration_date < datetime.date.today():
             raise OutdatedVaccineError(
                 f"{visitor.get('name', 'Visitor')}'s vaccine is outdated"
